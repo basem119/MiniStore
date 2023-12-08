@@ -47,22 +47,6 @@ namespace MiniStore.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "2771dc5c-e2d9-4c17-8246-8878569189aa",
-                            ConcurrencyStamp = "4a9f143d-068f-4595-bd5d-ac1ec7fa2b4d",
-                            Name = "Admin",
-                            NormalizedName = "admin"
-                        },
-                        new
-                        {
-                            Id = "3d44c93b-efac-4758-a0f2-e4b2ecd219b3",
-                            ConcurrencyStamp = "ce85e82c-c323-4cb2-ac9d-dcb98ca0e950",
-                            Name = "User",
-                            NormalizedName = "user"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -262,7 +246,7 @@ namespace MiniStore.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("categories");
+                    b.ToTable("categories", (string)null);
                 });
 
             modelBuilder.Entity("MiniStore.Models.Entities.Order", b =>
@@ -279,7 +263,7 @@ namespace MiniStore.Migrations
                     b.Property<DateTime>("OrderDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 12, 5, 17, 5, 25, 319, DateTimeKind.Local).AddTicks(540));
+                        .HasDefaultValue(new DateTime(2023, 12, 8, 19, 21, 26, 394, DateTimeKind.Local).AddTicks(5336));
 
                     b.Property<int>("OrderStatus")
                         .HasColumnType("int");
@@ -396,7 +380,6 @@ namespace MiniStore.Migrations
                         .HasColumnType("real");
 
                     b.Property<byte[]>("productPhoto")
-                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.HasKey("Id");

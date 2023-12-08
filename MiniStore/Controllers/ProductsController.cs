@@ -12,7 +12,7 @@ using MiniStore.Models.Entities;
 
 namespace MiniStore.Controllers
 {
-    [Authorize(Roles = clsRole.roleAdmin)]
+    [Authorize(Roles = clsRole.roleAdmin +"," + clsRole.roleAddProduct + ","+  clsRole.roleUpdateProduct)]
     public class ProductsController : Controller
     {
         private readonly AppDbContext _context;
@@ -51,6 +51,7 @@ namespace MiniStore.Controllers
         }
 
         // GET: Products/Create
+
         public IActionResult Create()
         {
             return View();
@@ -61,6 +62,7 @@ namespace MiniStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> Create([Bind("Id,Name,Photo,Description,Quantity,Price1,Price2,Degree,height,Width")] Product product)
         {
             if (ModelState.IsValid)

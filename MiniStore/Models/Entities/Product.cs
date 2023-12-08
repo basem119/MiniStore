@@ -24,7 +24,7 @@ namespace MiniStore.Models.Entities
         [NotMapped]
         public IFormFile? clientFile { get; set; }
         [Display(Name="Product Photo")]
-        public byte[] productPhoto { get; set; }
+        public byte[]? productPhoto { get; set; }
         public ICollection<OrderDetail>? OrderDetails { get; set; } = new List<OrderDetail>();
         public ICollection<Order>? Orders { get; set; } = new List<Order>();
         public ICollection<ProductCategory>? ProductCategories { get; set; } = new List<ProductCategory>();

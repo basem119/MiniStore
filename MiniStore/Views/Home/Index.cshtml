@@ -1,0 +1,98 @@
+﻿@using MiniStore.Controllers;
+@model IEnumerable<MiniStore.Models.Entities.ProductCategory>
+@{
+    ViewData["Title"] = "Home Page";
+
+}
+
+<section id="billboard" class="position-relative overflow-hidden bg-light-blue">
+    <div class="swiper main-swiper mt-9">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="container">
+                        <div class="col-md-5">
+                            <div class="image-holder">
+                                <img src="images/dr4.PNG" alt="banner">
+                            </div>
+                        </div>                 
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="container">
+                    <div class="row d-flex flex-wrap align-items-center ">
+                        <div class="col-md-5">
+                            <div class="image-holder">
+                                <img src="images/dr3.PNG" alt="banner">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="swiper-icon swiper-arrow swiper-arrow-prev">
+        <svg class="chevron-left">
+            <use xlink:href="#chevron-left" />
+        </svg>
+    </div>
+    <div class="swiper-icon swiper-arrow swiper-arrow-next">
+        <svg class="chevron-right">
+            <use xlink:href="#chevron-right" />
+        </svg>
+    </div>
+</section>
+
+
+<section id="smart-watches" class="product-store padding-large position-relative">
+    <div class="container">
+        <div class="row">
+            @foreach (var category in Model.GroupBy(x => x.Category))
+            {
+            <div class="display-header d-flex justify-content-between pb-3">
+                <h2 class="display-7 text-dark text-uppercase">@category.FirstOrDefault().Category.Name</h2>
+                <div class="btn-right">
+                    <a href="shop.html" class="btn btn-medium btn-normal text-uppercase">Go to Shop</a>
+                </div>
+            </div>
+             
+            <div class="swiper product-watch-swiper">
+                <div class="swiper-wrapper">
+                    @foreach (var item in category)
+                    {
+                        
+                        <div class="swiper-slide swiper-slide-active" role="group" aria-label="1 / 5" style="width: 350px; margin-right: 20px;">
+                            <div class="product-card position-relative">
+                                <div class="image-holder">
+                                    <img src="~/images/@item.Product.Photo" alt="product-item" class="img-fluid" />
+                                </div>
+                                <div class="cart-concern position-absolute">
+                                    <div class="cart-button d-flex">
+                                             <a href="/Cart/AddItemToCart?ProductId=@item.Product.Id " class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline">
+                                                 <use xlink:href="#cart-outline"></use></svg></a>
+                                           
+
+                                    </div>
+                                </div>
+                                <div class="card-detail ">
+                                    <h5 class="card-title ">@item.Product.Name</h5>
+                                    <p class="card-text">
+                                        <b>Description: </b>@item.Product.Description<br />
+                                        <b>Category: </b>@item.Category.Name<br />
+                                        <b>Price: </b>@item.Product.Price2 <br />
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+    <div class="swiper-pagination position-absolute text-center"></div>
+</section>
+
+<script src="~/js/script.js" asp-append-version="true"></script>

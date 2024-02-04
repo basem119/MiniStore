@@ -9,7 +9,7 @@ namespace MiniStore.Repositories
         Task<int> AddToCart(int productId, int quantity);
         Task<int> DeleteItemInCart(int productId);
         Task<int> CheckOut();
-        IEnumerable<Order> GetOrders(string userId);
+        Task<IEnumerable<Order>> GetOrders();
 
     }
 }

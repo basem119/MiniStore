@@ -34,9 +34,10 @@ namespace MiniStore.Repositories
             return  AppDbContext.Orders.Where(x => x.CustomerId == userId && x.OrderStatus == 0).FirstOrDefault();
         }
         
-        public IEnumerable<Order> GetOrders(string userId)
+        public async Task<IEnumerable<Order>> GetOrders()
         {
-            throw new NotImplementedException();
+            var orders =  AppDbContext.Orders.Include(x => x.Customer).Include(x=>x.OrderDetails).ThenInclude(x=>x.Product);
+            return  orders;
         }
 
         public async Task<int> AddToCart(int productId, int quantity)

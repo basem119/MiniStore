@@ -63,7 +63,7 @@ namespace MiniStore.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public async Task<IActionResult> Create([Bind("Id,Name,Photo,Description,Quantity,Price1,Price2,Degree,height,Width")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,Name,clientFile,Description,Quantity,Price1,Price2,Degree,height,Width")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -77,12 +77,13 @@ namespace MiniStore.Controllers
                     string fullPath = Path.Combine(myUpload, fileName);
                     product.clientFile.CopyTo(new FileStream(fullPath,FileMode.Create));
                     product.Photo = fileName;
-                }
+                
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            else { Problem(" Error in creaating product  "); }
+            }
+            else { Problem(" Error in creating product  "); }
             return View(product);
         }
 

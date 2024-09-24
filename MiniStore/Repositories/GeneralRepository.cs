@@ -28,9 +28,9 @@ namespace MiniStore.Repositories
         //    return await _context.Set<TEntity>().FindAsync(id);
         //}
 
-        public void Find(Expression<Func<TEntity, bool>> predicate)
+        public IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
-            _context.Set<TEntity>().Where(predicate);
+            return _context.Set<TEntity>().Where(predicate);
         }
 
         public IEnumerable<TEntity> GetAll()

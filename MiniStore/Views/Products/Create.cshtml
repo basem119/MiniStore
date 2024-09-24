@@ -27,10 +27,12 @@
                 <input asp-for="Photo" class="form-control" />
 
                 <span asp-validation-for="Photo" class="text-danger"></span>
-            </div> *@
+            </div>  *@
             <div>
-                <input type="file" asp-for="clientFile" onchange="loadFile(event)" required />
-                <img id="myImg" height="200"/>
+                <input type="file" asp-for="clientFile" onchange="loadFile(event)" class="form-control" required />
+@*                 <input type="file" name="clientFile" id="clientFile" onchange="loadFile(event)" /> *@
+                <img  id="myImg" height="200" />
+
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>

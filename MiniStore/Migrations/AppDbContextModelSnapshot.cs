@@ -246,7 +246,7 @@ namespace MiniStore.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("categories", (string)null);
+                    b.ToTable("categories");
                 });
 
             modelBuilder.Entity("MiniStore.Models.Entities.Order", b =>
@@ -263,10 +263,13 @@ namespace MiniStore.Migrations
                     b.Property<DateTime>("OrderDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 12, 8, 19, 21, 26, 394, DateTimeKind.Local).AddTicks(5336));
+                        .HasDefaultValue(new DateTime(2024, 6, 26, 19, 15, 48, 258, DateTimeKind.Local).AddTicks(7950));
 
                     b.Property<int>("OrderStatus")
                         .HasColumnType("int");
+
+                    b.Property<float>("Total")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 

@@ -14,6 +14,7 @@ namespace MiniStore.Data
 {
     public class AppDbContext : IdentityDbContext<IdentityUser>
     {
+
         public AppDbContext()
         {
         }

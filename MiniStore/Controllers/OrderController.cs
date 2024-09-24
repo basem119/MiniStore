@@ -25,9 +25,13 @@ namespace MiniStore.Controllers
             return View (await _order.orders.GetOrders());
         }
 
+        public async Task<IActionResult> Details(int id)
+        {
+            return View(await _order.orders.GetOrderDetails( id));
+        }
 
 
-   
+
 
     }
 }

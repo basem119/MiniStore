@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using MiniStore.Data;
 using MiniStore.Models.Entities;
+using Microsoft.CodeAnalysis;
 
 namespace MiniStore.Repositories
 {
@@ -11,8 +12,8 @@ namespace MiniStore.Repositories
     {
         private readonly UserManager<Customer> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        
-        public OrderRepository(DbContext context, IHttpContextAccessor httpContextAccessor, UserManager<Customer> userManager) : base(context,userManager)
+
+        public OrderRepository(DbContext context, IHttpContextAccessor httpContextAccessor, UserManager<Customer> userManager) : base(context, userManager)
         {
             _userManager = userManager;
             _httpContextAccessor = httpContextAccessor;
@@ -20,7 +21,7 @@ namespace MiniStore.Repositories
 
         public async Task<Order> GetUserCart(string userId)
         {
-            
+
             return await AppDbContext.Orders.Where(x => x.CustomerId == userId && x.OrderStatus == 0)
                                             .Include(x => x.OrderDetails)
                                             .ThenInclude(x => x.Product)
@@ -30,16 +31,22 @@ namespace MiniStore.Repositories
         {
 
             var users = await _userManager.FindByIdAsync(userId);
-          
-            return  AppDbContext.Orders.Where(x => x.CustomerId == userId && x.OrderStatus == 0).FirstOrDefault();
-        }
-        
-        public async Task<IEnumerable<Order>> GetOrders()
-        {
-            var orders =  AppDbContext.Orders.Include(x => x.Customer).Include(x=>x.OrderDetails).ThenInclude(x=>x.Product);
-            return  orders;
+
+            return AppDbContext.Orders.Where(x => x.CustomerId == userId && x.OrderStatus == 0).FirstOrDefault();
         }
 
+        public async Task<IEnumerable<Order>> GetOrders()
+        {
+            var orders = AppDbContext.Orders.Include(x => x.Customer).Include(x => x.OrderDetails).ThenInclude(x => x.Product);
+            return orders;
+        }
+        public async Task<IEnumerable<OrderDetail>> GetOrderDetails(int OrderId)
+        {
+            var OrderDetail = AppDbContext.OrderDetails.Where(x => x.OrderId == OrderId);
+
+            return OrderDetail;
+
+        }
         public async Task<int> AddToCart(int productId, int quantity)
         {
 
@@ -57,7 +64,8 @@ namespace MiniStore.Repositories
                     {
                         CustomerId = userId,
                         OrderStatus = 0,
-                        OrderDate = DateTime.Now
+                        OrderDate = DateTime.Now,
+                        
                     };
 
                     AppDbContext.Orders.Add(cart);
@@ -119,7 +127,7 @@ namespace MiniStore.Repositories
             return 1;
 
         }
-        public async Task<int> CheckOut()
+        public async Task<int> CheckOut(float Total)
         {
             var userId = GetUserId();
             if (userId == null)
@@ -130,6 +138,7 @@ namespace MiniStore.Repositories
             if (cart == null) { throw new Exception("Not items in cart"); }
             if (user == null) { throw new Exception("Not user found"); }
             cart.OrderStatus = 1;
+            cart.Total = Total;
             AppDbContext.Orders.Update(cart);
             AppDbContext.SaveChanges();
             return 1;

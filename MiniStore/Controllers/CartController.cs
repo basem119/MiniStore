@@ -42,9 +42,9 @@ namespace MiniStore.Controllers
                 return Problem("Can't remove item");
         }
 
-        public async Task<IActionResult> CheckOut()
+        public async Task<IActionResult> CheckOut(float Total)
         {
-            var output =await  _cartRepo.orders.CheckOut();
+            var output =await  _cartRepo.orders.CheckOut(Total);
             return RedirectToAction("Index", "Home");
         }
 

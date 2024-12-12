@@ -1,1 +1,1 @@
-MiniStore  MCV project is ecommerce website for Bags that enable customers to order their need online.
+This project provides a backend solution for small stores to manage their operations efficiently. It includes features for managing clients, generating bills, tracking transactions, and generating detailed reports. It also supports applying discounts and maintaining store inventory.
